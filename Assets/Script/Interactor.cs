@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
@@ -16,9 +18,22 @@ public class Interactor : MonoBehaviour
         {
             //Debug.Log("Questo oggetto è interagibile");
             var interactable = _colliders[0].GetComponent<InteractInterface>(); // acquisisco l'interfaccia dell'oggetto
-            if (interactable != null && Input.GetKeyDown(KeyCode.E)) interactable.Interact(this); // richiamo il metodo Interact
+            string _tagToSearch = interactable.InteractionPrompt;
+            if (interactable != null && Input.GetKeyDown(KeyCode.E)) {
+                interactable.Interact(this); // richiamo il metodo Interact
+                //GameObject.FindWithTag(_tagToSearch).SetActive(true);
+                PanelActivation(_tagToSearch);
+            }
+           
 
         }
 
     } 
+    private void PanelActivation(string _tagToSearch)
+    {
+        GameObject _panel = GameObject.FindWithTag(_tagToSearch);
+        CanvasRenderer canvasRenderer = _panel.GetComponent<CanvasRenderer>();
+        canvasRenderer.SetAlpha(canvasRenderer.GetAlpha() == 1 ? 0 : 1);
+    }
 }
+    
