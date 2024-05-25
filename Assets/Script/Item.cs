@@ -11,6 +11,7 @@ public class Item : MonoBehaviour, InteractInterface
     {
         Debug.Log("Hai preso l'oggetto!");
         //gameObject.SetActive(false);
+    
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
             if (meshRenderer != null)
             {
